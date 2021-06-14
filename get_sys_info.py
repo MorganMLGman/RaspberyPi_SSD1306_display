@@ -60,3 +60,10 @@ def get_temperature() ->str:
     temp = temp[2:-3]
     
     return f"TEMP {temp}°C"
+
+def get_arm_freq() -> str:
+    cmd = """vcgencmd measure_clock arm | cut -d '=' -f 2"""
+    freq = str(check_output(cmd, shell = True))[2:-3]
+    freq = float(freq)/1000000
+    
+    return f"{round(freq)} MHz"
