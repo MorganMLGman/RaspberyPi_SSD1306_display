@@ -24,10 +24,39 @@ def get_cpu_usage() -> str:
     cpu.strip()
     cpu = float(cpu)
     cpu /= 4.0
-    return str(f"CPU: {round((cpu * 100), 1)}%")
+    return f"CPU {round((cpu * 100), 1)}%"
 
 def get_ip_address() -> str:
     cmd = "hostname -I | cut -d ' ' -f 1"
     ip = str(check_output(cmd, shell = True))
     ip = ip[2:-3]
-    return f"IP: {ip}"
+    return f"IP {ip}"
+
+def get_ram_usage() -> str:
+    cmd = """free -m | awk 'NR==2{printf "%s", $2}'"""
+    ram_total = str(check_output(cmd, shell = True))
+    cmd = """free -m | awk 'NR==2{printf "%s", $3}'"""
+    ram_used = str(check_output(cmd, shell = True))
+
+    ram_used = int(ram_used.replace("b", "").replace("'", ""))
+    ram_total = int(ram_total.replace("b", "").replace("'", ""))
+
+    return f"RAM {round((ram_used/ram_total)*100, 1)}%"
+
+def get_disk_usage() -> str:
+    cmd = """df | awk '$NF=="/"{printf "%d", $3}'"""
+    disk_usage = str(check_output(cmd, shell = True))
+    cmd = """df | awk '$NF=="/"{printf "%d", $2}'"""
+    disk_total = str(check_output(cmd, shell = True))
+
+    disk_usage = int(disk_usage.replace("b", "").replace("'", ""))
+    disk_total = int(disk_total.replace("b", "").replace("'", ""))
+
+    return f"DISK {round((disk_usage/disk_total)*100, 1)}%"
+
+def get_temperature() ->str:
+    cmd = """vcgencmd measure_temp | cut -d '=' -f 2 | cut -d "'" -f 1"""
+    temp = str(check_output(cmd, shell = True))
+    temp = temp[2:-3]
+    
+    return f"TEMP {temp}°C"
