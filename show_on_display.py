@@ -21,11 +21,9 @@ font_clock = ImageFont.truetype("fonts/OpenSans/OpenSans-Semibold.ttf", 18)
 font_clock_offset_v = int(font_clock.getsize('0')[1] * -0.25)
 font_clock_size = (font_clock.getsize('0')[0], font_clock.getsize('0')[1] - font_clock_offset_v)
 
-font_data = ImageFont.truetype("fonts/OpenSans/OpenSans-Semibold.ttf", 12)
+font_data = ImageFont.truetype("fonts/OpenSans/OpenSans-Bold.ttf", 10)
 font_data_offset_v = int(font_data.getsize('0')[1] * -0.25)
 font_data_size = (font_data.getsize('0')[0], font_data.getsize('0')[1] - font_data_offset_v)
-
-print( font_data.getsize("O"))
 
 is_linux = get_sys_info.check_system_type('Linux')
 
@@ -49,9 +47,11 @@ def update_data(function) -> Image:
 
 while is_linux:
     clock_screen = update_clock();
-    data_screen = update_data(get_sys_info.get_cpu_usage)
+    cpu_screen = update_data(get_sys_info.get_cpu_usage)
+    ip_screen = update_data(get_sys_info.get_ip_address)
     screen.paste(clock_screen, (0, 0))
-    screen.paste(data_screen, (0, clock_screen.size[1] + font_clock_offset_v))
+    screen.paste(cpu_screen, (0, clock_screen.size[1] + font_clock_offset_v - 1))
+    screen.paste(ip_screen, (0,  clock_screen.size[1] + cpu_screen.size[1] + font_data_offset_v + font_clock_offset_v - 1))
     display.image(screen)
     display.display()
     sleep(1)

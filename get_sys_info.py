@@ -25,3 +25,9 @@ def get_cpu_usage() -> str:
     cpu = float(cpu)
     cpu /= 4.0
     return str(f"CPU: {round((cpu * 100), 1)}%")
+
+def get_ip_address() -> str:
+    cmd = "hostname -I | cut -d ' ' -f 1"
+    ip = str(check_output(cmd, shell = True))
+    ip = ip[2:-3]
+    return f"IP: {ip}"
