@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from time import sleep, time
 from datetime import datetime
 from sched import scheduler
@@ -27,7 +30,7 @@ width = display.width
 screen = Image.new('1', (width, height))
 screen_draw = ImageDraw.Draw(screen)
 
-font_clock = ImageFont.truetype("fonts/OpenSans/OpenSans-Bold.ttf", 18)
+font_clock = ImageFont.truetype("/root/RaspberyPi_SSD1306_display/fonts/OpenSans/OpenSans-Bold.ttf", 18)
 font_clock_offset_v = int(font_clock.getsize('0')[1] * -0.25)
 font_clock_size = (font_clock.getsize('0')[0], font_clock.getsize('0')[1] - font_clock_offset_v)
 

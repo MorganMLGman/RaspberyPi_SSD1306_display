@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from sys import platform
 from platform import system
 from subprocess import check_output

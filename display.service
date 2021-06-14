@@ -3,7 +3,8 @@ Description=Display System Info on SSD1306 display
 After=multi-user.target
 
 [Service]
-Type=idle
+Type=simple
+User=root
 ExecStart=/usr/bin/python3 /root/RaspberyPi_SSD1306_display/show_on_display.py
 
 [Install]
