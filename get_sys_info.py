@@ -17,7 +17,3 @@ def get_time() -> str:
 {cur_time.tm_sec if (cur_time.tm_sec > 9) else f"0{cur_time.tm_sec}"}"""
 
     return ret
-
-    
-
-print(get_time())
